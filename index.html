@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickNotes API Client</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="api.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>QuickNotes</h1>
+    <p>API client for the QuickNotes system design project</p>
+  </header>
+
+  <main>
+    <p id="status"></p>
+
+    <section>
+      <h2>Add a note</h2>
+      <form id="note-form">
+        <label for="title-input">Title</label>
+        <input type="text" id="title-input" placeholder="Note title">
+
+        <label for="body-input">Body (optional)</label>
+        <textarea id="body-input" rows="4" placeholder="Write your note here"></textarea>
+
+        <button type="submit" id="submit-btn">Add note</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Notes</h2>
+      <button type="button" id="load-btn">Load notes</button>
+      <ul id="notes-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>QuickNotes - PLP Project 2: System Design</p>
+  </footer>
+</body>
+</html>

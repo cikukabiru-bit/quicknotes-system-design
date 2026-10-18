@@ -1,0 +1,160 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #222222;
+  line-height: 1.5;
+}
+
+/* Header */
+header {
+  background-color: #264653;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  margin: 5px 0 0;
+}
+
+/* Main column */
+main {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+/* Section cards */
+section {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+section h2 {
+  margin-top: 0;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+input,
+textarea {
+  padding: 8px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+/* Buttons */
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2a9d8f;
+  color: white;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+button:hover {
+  background-color: #1f7a6f;
+}
+
+button:disabled {
+  background-color: #999999;
+  cursor: not-allowed;
+}
+
+/* Status messages */
+#status {
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 0 0 20px;
+}
+
+#status:empty {
+  display: none;
+}
+
+#status.loading {
+  background-color: #e8eef3;
+  color: #264653;
+}
+
+#status.success {
+  background-color: #e6f4ea;
+  color: #1e6b34;
+  border: 1px solid #1e6b34;
+}
+
+#status.error {
+  background-color: #fdecea;
+  color: #b00020;
+  border: 1px solid #b00020;
+  font-weight: bold;
+}
+
+/* Notes list */
+#notes-list {
+  list-style: none;
+  padding: 0;
+}
+
+.note {
+  padding: 12px;
+  border: 1px solid #dddddd;
+  border-left: 6px solid #2a9d8f;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.note h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.note p {
+  margin: 0 0 8px;
+  color: #444444;
+}
+
+.delete-btn {
+  background-color: #555555;
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.delete-btn:hover {
+  background-color: #8b0000;
+}
+
+/* Empty state */
+.empty {
+  color: #666666;
+  font-style: italic;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  color: #666666;
+  font-size: 14px;
+}
