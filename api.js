@@ -41,6 +41,16 @@ async function getNotes() {
   return request(API_URL + "?_limit=10");
 }
 
+// POST: create a note
+async function createNote(title, body) {
+  return request(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: title, body: body, userId: 1 })
+  });
+}
+
+
 // Draw the notes array on the page
 function renderNotes() {
   notesList.textContent = "";
@@ -88,6 +98,45 @@ async function loadNotes() {
 }
 
 loadBtn.addEventListener("click", loadNotes);
+
+// Task 2: create a note with POST
+noteForm.addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  const title = titleInput.value.trim();
+  const body = bodyInput.value.trim();
+
+  if (title === "") {
+    showStatus("Please enter a title for your note.", "error");
+    return;
+  }
+
+  if (title.length > 100) {
+    showStatus("The title must be 100 characters or fewer.", "error");
+    return;
+  }
+
+  showStatus("Saving note...", "loading");
+  submitBtn.disabled = true;
+
+  try {
+    const result = await createNote(title, body);
+    const newNote = result.data;
+
+    // Mark notes we created, so Delete knows they are not really on the server
+    newNote.isLocal = true;
+
+    notes.unshift(newNote);
+    renderNotes();
+    showStatus("Note created (status " + result.status + ", id " + newNote.id + ").", "success");
+    noteForm.reset();
+  } catch (error) {
+    console.error(error);
+    showStatus("Sorry, we could not save your note. Please try again.", "error");
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
 
 // Show the empty state when the page first loads
 renderNotes();
