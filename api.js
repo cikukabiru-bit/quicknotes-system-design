@@ -50,6 +50,10 @@ async function createNote(title, body) {
   });
 }
 
+// DELETE: remove a note
+async function removeNote(id) {
+  return request(API_URL + "/" + id, { method: "DELETE" });
+}
 
 // Draw the notes array on the page
 function renderNotes() {
@@ -73,8 +77,16 @@ function renderNotes() {
     const body = document.createElement("p");
     body.textContent = note.body;
 
+        const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", function () {
+      handleDelete(note, deleteBtn);
+    });
+
     li.appendChild(title);
     li.appendChild(body);
+    li.appendChild(deleteBtn);
     notesList.appendChild(li);
   }
 }
@@ -137,6 +149,42 @@ noteForm.addEventListener("submit", async function (event) {
     submitBtn.disabled = false;
   }
 });
+
+// Task 3: delete a note with DELETE
+//
+// JSONPlaceholder is a fake API: it answers a POST with id 101 but does not
+// really save the note, so a created note does not exist on the server.
+// - Notes we created ourselves (isLocal): there is nothing to delete on the
+//   server, so we skip the request and just remove the note from the page.
+// We remove the exact note object (not "every note with this id"), because
+// several created notes can all have the same id 101.
+async function handleDelete(note, button) {
+  if (note.isLocal) {
+    notes = notes.filter(function (item) {
+      return item !== note;
+    });
+    renderNotes();
+    showStatus("Note removed.", "success");
+    return;
+  }
+
+  showStatus("Deleting note...", "loading");
+  button.disabled = true;
+
+  try {
+    const result = await removeNote(note.id);
+    notes = notes.filter(function (item) {
+      return item !== note;
+    });
+    renderNotes();
+    showStatus("Note deleted (status " + result.status + ").", "success");
+  } catch (error) {
+    console.error(error);
+    showStatus("Sorry, we could not delete that note. Please try again.", "error");
+  } finally {
+    button.disabled = false;
+  }
+}
 
 // Show the empty state when the page first loads
 renderNotes();
